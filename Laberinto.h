@@ -6,24 +6,27 @@
 #define LABERINTO_H
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
-
-
 class Laberinto {
-public:
+
+private:
 
     int alto = 0;
     int ancho = 0;
     char** laberinto;
-    int coordActual;
+    int coordXActual;
+    int coordYActual;
     int inicioX, inicioY;
     int finalX, finalY;
 
-private:
+public:
     Laberinto();
     ~Laberinto();
+    int getCoordXActual() const;
+    void setCoordXActual(int coordXActual);
+    int getCoordYActual() const;
+    void setCoordYActual(int coordYActual);
     void cargarArchivo(string nombreTXT);
     void generadorDeLaberinto(int filas, int columnas);
     void imprimirLaberinto();
@@ -36,9 +39,31 @@ private:
      * @param alto alto del laberinto
      * @param ancho ancho del laberinto
      */
-    void espacioLab(char** laberinto, int alto, int ancho);
+    void espacioLab();
 
-    bool moverArriba(char** laberinto);
+    /**
+     * Metodo que mueve al robot hacia arriba
+     * @return true si se puede mover hacia arriba
+     */
+    bool moverArriba();
+
+    /**
+     * Metodo que mueve al robot hacia abajo
+     * @return true si se puede mover hacia abajo
+     */
+    bool moverAbajo();
+
+    /**
+     * true si se puede mover hacia la derecha
+     * @return true si se puede mover hacia la derecha
+     */
+    bool moverDerecha();
+
+    /**
+     * true si se puede mover hacia la izquierda
+     * @return true si se puede mover hacia la izquierda
+     */
+    bool moverIzquierda();
 
     //for (int i = 0; i < filas; i++) {
         //for (int j = 0; j < columnas; j++) {
