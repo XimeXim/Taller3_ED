@@ -27,3 +27,22 @@ void Laberinto::resolverLaberinto(Laberinto laberinto) {
 
 void Laberinto::encontrarCamino(Laberinto laberinto, int inicioX, int inicioY) {
 }
+
+void Laberinto::espacioLab(char** laberinto, int alto, int ancho) {
+
+    laberinto = new char * [ancho];
+    for (int i = 0; i < ancho; ++i) {
+        laberinto[i] = new char [alto];
+    }
+}
+
+bool Laberinto::moverArriba(char **laberinto) {
+
+
+    //for (int i = 0; i < ancho; i++) {
+        //for (int j = 0; j < alto; j++) {
+
+        //}
+
+    //}
+}
