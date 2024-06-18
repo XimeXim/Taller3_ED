@@ -42,28 +42,96 @@ public:
     void espacioLab();
 
     /**
-     * Metodo que mueve al robot hacia arriba
-     * @return true si se puede mover hacia arriba
+     * Metodo que verifica si hay un espacio libre arriba
+     * @return True si arriba hay un espacio libre
      */
-    bool moverArriba();
+    bool verificarUp();
+
+    /**
+     * Metodo que verifica si hay un espacio libre abajo
+     * @return True si arriba hay un espacio libre
+     */
+    bool verificarDown();
+
+    /**
+     * Metodo que verifica si hay un espacio libre a la derecha
+     * @return True si arriba hay un espacio libre
+     */
+    bool verificarRight();
+
+    /**
+     * Metodo que verifica si hay un espacio libre a la izquierda
+     * @return True si arriba hay un espacio libre
+     */
+    bool verificarLeft();
+
+    /**
+     * Metodo que mueve al robot hacia arriba
+     */
+    void moverArriba();
 
     /**
      * Metodo que mueve al robot hacia abajo
-     * @return true si se puede mover hacia abajo
      */
-    bool moverAbajo();
+    void moverAbajo();
 
     /**
-     * true si se puede mover hacia la derecha
-     * @return true si se puede mover hacia la derecha
+     * Metodo que mueve al robot hacia la derecha
      */
-    bool moverDerecha();
+    void moverDerecha();
 
     /**
-     * true si se puede mover hacia la izquierda
-     * @return true si se puede mover hacia la izquierda
+     * Metodo que mueve al robot hacia la izquierda
      */
-    bool moverIzquierda();
+    void moverIzquierda();
+
+    /**
+     * Metodo que comprueba si hay salida un camino sin salida por arriba
+     * @return True si hay un camino sin salida
+     */
+    bool noExitUp();
+
+    /**
+     * Metodo que comprueba si hay salida un camino sin salida por abajo
+     * @return True si hay un camino sin salida
+     */
+    bool noExitDown();
+
+    /**
+     * Metodo que comprueba si hay salida un camino sin salida por la derecha
+     * @return True si hay un camino sin salida
+     */
+    bool noExitRight();
+
+    /**
+     * Metodo que comprueba si hay salida un camino sin salida por la izquierda
+     * @return True si hay un camino sin salida
+     */
+    bool noExitLeft();
+
+    /**
+     * Metodo que verifica si la salida esta arriba
+     * @return True si esta y sale del laberinto
+     */
+    bool testExitUp();
+
+    /**
+     * Metodo que verifica si la salida esta abajo
+     * @return True si esta y sale del laberinto
+     */
+    bool testExitDown();
+
+    /**
+     * Metodo que verifica si la salida esta a la derecha
+     * @return True si esta y sale del laberinto
+     */
+    bool testExitRight();
+
+    /**
+     * Metodo que verifica si la salida esta a la izquierda
+     * @return True si esta y sale del laberinto
+     */
+    bool testExitLeft();
 
     //for (int i = 0; i < filas; i++) {
         //for (int j = 0; j < columnas; j++) {
