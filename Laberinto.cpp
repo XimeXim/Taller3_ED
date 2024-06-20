@@ -4,10 +4,47 @@
 
 #include "Laberinto.h"
 
-Laberinto::Laberinto() {
+
+Laberinto::Laberinto(std::string nombreArchivo) {
+    ifstream archivo(nombreArchivo);
+    if(!archivo) {
+        std::cout<<"No se pudo abrir el archivo :("<<std::endl;
+        exit(1);
+    }
+    std::string lineas;
+    while(getline(archivo,lineas)) {
+        if(ancho==0) {
+            ancho=lineas.size();
+        }
+        alto++;
+    }
+    archivo.close();
+    if(!archivo) {
+        std::cout<<"No se pudo abrir el archivo :("<<std::endl;
+        exit(1);
+    }
+
+    laberinto = new char *[alto];
+    for(int i=0;i<alto;i++) {
+        laberinto[i]=new char[ancho];
+    }
+
+    while(getline(archivo,lineas)) {
+        for (int i=0; i<alto;i++) {
+            for(int j=0;j<ancho;ancho++) {
+                laberinto[alto][ancho]=lineas[ancho];
+            }
+        }
+    }
+    encontrarCamino();
+
 }
 
 Laberinto::~Laberinto() {
+    for(int i=0;i<alto;i++) {
+        delete[]laberinto[i];
+    }
+    delete[]laberinto;
 }
 
 int Laberinto::getCoordXActual() const {
@@ -26,22 +63,32 @@ void Laberinto::setCoordYActual(int coordYActual) {
     Laberinto::coordYActual = coordYActual;
 }
 
-void Laberinto::cargarArchivo(string nombreTXT) {
-}
-
-void Laberinto::generadorDeLaberinto(int filas, int columnas) {
-}
 
 void Laberinto::imprimirLaberinto() {
+    for (int i = 0; i < alto; ++i) {
+        for (int j = 0; j < ancho; ++j) {
+            cout << laberinto[i][j];
+        }
+        cout << endl;
+    }
+
 }
 
 void Laberinto::recorridoPorLaberinto(vector<pair<int, int>> camino) {
 }
 
-void Laberinto::resolverLaberinto(Laberinto laberinto) {
-}
-
-void Laberinto::encontrarCamino(Laberinto laberinto, int inicioX, int inicioY) {
+void Laberinto::encontrarCamino() {
+    for(int i=0;i<alto;i++) {
+        for (int j=0;j<ancho;j++) {
+            if (laberinto[i][j]== 'S') {
+                inicioX=i;
+                inicioY=j;
+            }else if(laberinto[i][j]=='E') {
+                finalX=i;
+                finalY=j;
+            }
+        }
+    }
 }
 
 void Laberinto::espacioLab() {

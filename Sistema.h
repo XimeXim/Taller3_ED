@@ -6,9 +6,14 @@
 #define SISTEMA_H
 
 
-
 class Sistema {
 
+
+public:
+    Sistema();
+    ~Sistema();
+    void Menu();
+    void Cargar();
 };
 
 

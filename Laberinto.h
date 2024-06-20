@@ -6,14 +6,13 @@
 #define LABERINTO_H
 #include <iostream>
 #include <vector>
+#include <string>
+#include <fstream>
 using namespace std;
 
 class Laberinto {
 
 private:
-
-    int alto = 0;
-    int ancho = 0;
     char** laberinto;
     int coordXActual;
     int coordYActual;
@@ -21,18 +20,18 @@ private:
     int finalX, finalY;
 
 public:
-    Laberinto();
+    Laberinto(std::string nombreArchivo);
     ~Laberinto();
+    int alto=0;
+    int ancho=0;
     int getCoordXActual() const;
     void setCoordXActual(int coordXActual);
     int getCoordYActual() const;
     void setCoordYActual(int coordYActual);
-    void cargarArchivo(string nombreTXT);
-    void generadorDeLaberinto(int filas, int columnas);
     void imprimirLaberinto();
     void recorridoPorLaberinto(vector<pair<int,int>> camino);
     void resolverLaberinto(Laberinto laberinto);
-    void encontrarCamino(Laberinto laberinto, int inicioX,int inicioY);
+    void encontrarCamino();
     /**
      * Metodo que crea el espacio para el laberinto
      * @param laberinto contenido del laberinto

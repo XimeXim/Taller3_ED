@@ -1,6 +1,9 @@
 #include <iostream>
 
+#include "Sistema.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Sistema sis;
+    sis.Cargar();
     return 0;
 }

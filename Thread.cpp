@@ -4,8 +4,23 @@
 
 #include "Thread.h"
 
-Thread::Thread(Laberinto laberinto, pair<int, int> inicio, vector<pair<int, int>> final) {
+
+Thread::Thread(Laberinto &lab): laberinto(lab),resuelto(false) {
 }
 
 Thread::~Thread() {
+}
+
+void Thread::resolverLab(int cordXActual, int cordYActual, vector<vector<bool>> &verificado, vector<int, int> camino) {
+    if (resuelto) {
+        return;
+    }
+    //if(cordXActual<0)
+}
+
+bool Thread::isResuelto() {
+    return resuelto;
+}
+
+void Thread::resolver() {
 }
