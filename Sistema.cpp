@@ -20,7 +20,7 @@ void Sistema::Menu() {
     std::cout << "Menu:"<<std::endl;
     std::cout << "1. Resolver laberinto"<<std::endl;
     std::cout << "2. Salir"<<std::endl;
-    std::cout << "Seleccione una opción: "<<std::endl;
+    std::cout << "Seleccione una opcion: "<<std::endl;
 }
 
 void Sistema::Cargar() {
@@ -30,7 +30,7 @@ void Sistema::Cargar() {
         std::cin>>opcionSeleccionada;
         if(opcionSeleccionada==1) {
             std::string direccionArchivo;
-            std::cout<<"Favor de ingrsar una direccion donde se encuentra el archivo del laberinto: "<<std::endl;
+            std::cout<<"Favor de ingresar una direccion donde se encuentra el archivo del laberinto: "<<std::endl;
             std::cin>>direccionArchivo;
             Laberinto lab(direccionArchivo);
             Thread thread(lab);

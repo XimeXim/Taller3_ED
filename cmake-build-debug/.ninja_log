@@ -1,0 +1,6 @@
+# ninja log v5
+24	813	7406952110865935	CMakeFiles/Taller3_ED.dir/main.cpp.obj	6762a729bb858b37
+1321	1500	7407074535567908	Taller3_ED.exe	957ba0ad012b9908
+22	1018	7407074530812290	CMakeFiles/Taller3_ED.dir/Laberinto.cpp.obj	d1115f92931cc418
+13	1054	7407074531184963	CMakeFiles/Taller3_ED.dir/Sistema.cpp.obj	1352fc400268f8d6
+28	1321	7407074533854057	CMakeFiles/Taller3_ED.dir/Thread.cpp.obj	606586a67105198d

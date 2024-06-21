@@ -9,57 +9,75 @@ Thread::Thread(Laberinto &lab): laberinto(lab),resuelto(false) {
 }
 
 Thread::~Thread() {
+    for (auto &t : threads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
 }
 
 bool Thread::isResuelto() {
     return resuelto;
 }
 
-void Thread::resolverLab(int x, int y) {
-    if (resuelto) return;
-    std::lock_guard<std::mutex> lock(mtx);
-    if (resuelto) return;
-    // Verifica si la posición actual es la salida y si es asi el laberinto esta resuelto
-    if (laberinto.salidaEncontrada(x, y)) {
-        resuelto = true;
-        laberinto.imprimirLaberinto();
-        std::cout << "Enhorabuena chaval! El laberinto ha sioh resuelto, joder!" << std::endl;
-        return;
+bool Thread::resolverLab(int x, int y) {
+    if (resuelto) return false;
+    {
+        std::lock_guard<std::mutex> lock(mtx);
+        if (resuelto) return false;
     }
-    // Si la posición actual no es una por la que se mover no hace nada
-    if (!laberinto.movimientoValido(x, y)) {
-        return;
-    }
-    // Marca la posición en el camino segun su posicion actual
+
+    if (!laberinto.movimientoValido(x, y)) return false;
+
     laberinto.marcarCamino(x, y);
 
-    if (laberinto.verificarRight()) {
-        threads.emplace_back(&Thread::resolverLab, this, x, y + 1);
+    if (laberinto.testExitUp() || laberinto.testExitDown() || laberinto.testExitRight() || laberinto.testExitLeft()) {
+        std::lock_guard<std::mutex> lock(mtx);
+        resuelto = true;
+        return true;
     }
-    if (laberinto.verificarDown()) {
+
+    if (laberinto.verificarRight()) {
         threads.emplace_back(&Thread::resolverLab, this, x + 1, y);
     }
-    if (laberinto.verificarLeft()) {
+    if (laberinto.verificarDown()) {
         threads.emplace_back(&Thread::resolverLab, this, x, y - 1);
     }
-    if (laberinto.verificarUp()) {
+    if (laberinto.verificarLeft()) {
         threads.emplace_back(&Thread::resolverLab, this, x - 1, y);
     }
-}
+    if (laberinto.verificarUp()) {
+        threads.emplace_back(&Thread::resolverLab, this, x, y + 1);
+    }
 
-void Thread::comienzaAResolver() {
-    // thread para comenzar a resolver desde la posición inicial del laberinto
-    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual());
-
-    // espera que los threads terminen su ejecución
-    for (int i = 0; i < static_cast<int>(threads.size()); ++i) {
-        auto& t = threads[i];
+    // Unir los hilos creados
+    for (auto &t : threads) {
         if (t.joinable()) {
             t.join();
         }
     }
-    // No encontró una solución, imprime aviso
+
     if (!resuelto) {
+        laberinto.desmarcarCamino(x, y);
+    }
+
+    return resuelto;
+}
+
+
+void Thread::comienzaAResolver() {
+    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual());
+
+    // Unir el hilo inicial
+    for (auto &t : threads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
+
+    if (resuelto) {
+        laberinto.imprimirLaberintoResuelto(); // Marcar el camino encontrado
+    } else {
         std::cout << "Pamplinas... este laberinto no tiene solucion amigo :(" << std::endl;
         laberinto.imprimirLaberinto();
     }

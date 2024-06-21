@@ -22,8 +22,10 @@ private:
 public:
     Thread(Laberinto &lab);
     ~Thread();
+
     bool isResuelto();
-    void resolverLab(int x, int y);
+
+    bool resolverLab(int x, int y);
     void comienzaAResolver();
 
 
