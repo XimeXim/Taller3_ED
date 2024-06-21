@@ -16,20 +16,21 @@ private:
     char** laberinto;
     int coordXActual;
     int coordYActual;
-    int alto=0;
-    int ancho=0;
     int inicioX, inicioY;
     int finalX, finalY;
-    std::vector<std::pair<int, int>> caminoRecorrido;
 
 public:
     Laberinto(std::string direccionArchivo);
     ~Laberinto();
+    int alto=0;
+    int ancho=0;
     int getCoordXActual() const;
     void setCoordXActual(int coordXActual);
     int getCoordYActual() const;
     void setCoordYActual(int coordYActual);
     void imprimirLaberinto();
+    void recorridoPorLaberinto(vector<pair<int,int>> camino);
+    void resolverLaberinto(Laberinto laberinto);
     void encontrarCamino();
     /**
      * Metodo que crea el espacio para el laberinto
@@ -139,13 +140,8 @@ public:
     //}
 
  void marcarCamino(int x, int y) ;
-
-    void desmarcarCamino(int x, int y);
-
-    bool movimientoValido(int x, int y);
+ bool movimientoValido(int x, int y);
  bool salidaEncontrada(int x,int y);
-
-    void imprimirLaberintoResuelto();
 };
 
 
