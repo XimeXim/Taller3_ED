@@ -29,23 +29,17 @@ void Sistema::Cargar() {
         Menu();
         std::cin>>opcionSeleccionada;
         if(opcionSeleccionada==1) {
-            std::string nombreArchivo;
+            std::string direccionArchivo;
             std::cout<<"Favor de ingrsar una direccion donde se encuentra el archivo del laberinto: "<<std::endl;
-            std::cin>>nombreArchivo;
-            Laberinto lab(nombreArchivo);
+            std::cin>>direccionArchivo;
+            Laberinto lab(direccionArchivo);
             Thread thread(lab);
-            thread.resolver();
-            if (thread.isResuelto()) {
-                std::cout<<"Enhorabuena chaval! El laberinto ha sioh resuelto, joder!"<<std::endl;
-                lab.imprimirLaberinto();
-            }else {
-                std::cout<<"Pamplinas... este laberinto no tiene solucion amigo :("<<endl;
-            }
+            thread.comienzaAResolver();
         }else if(opcionSeleccionada==2) {
             std::cout<<"Saliendo... tu te lo pierdes >:("<<std::endl;
             break;
         }else {
-            std::cout<<"Lo lamento pero parece que esta opcion no es valida, ponga 1 o 2 plis"<<std::endl;
+            std::cout<<"Lo lamento pero parece que esta opcion no es valida, ponga el numero 1 o 2 plis"<<std::endl;
         }
     }
 }

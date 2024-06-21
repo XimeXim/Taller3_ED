@@ -20,7 +20,7 @@ private:
     int finalX, finalY;
 
 public:
-    Laberinto(std::string nombreArchivo);
+    Laberinto(std::string direccionArchivo);
     ~Laberinto();
     int alto=0;
     int ancho=0;
@@ -138,6 +138,10 @@ public:
         //}
         //std::cout << std::endl;
     //}
+
+ void marcarCamino(int x, int y) ;
+ bool movimientoValido(int x, int y);
+ bool salidaEncontrada(int x,int y);
 };
 
 

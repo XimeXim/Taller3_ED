@@ -5,11 +5,11 @@
 #include "Laberinto.h"
 
 
-Laberinto::Laberinto(std::string nombreArchivo) {
-    ifstream archivo(nombreArchivo);
+Laberinto::Laberinto(std::string direccionArchivo) {
+    ifstream archivo(direccionArchivo);
     if(!archivo) {
-        std::cout<<"No se pudo abrir el archivo :("<<std::endl;
-        exit(1);
+        std::cout<<"No se pudo abrir el archivo en esta direccion: "<< direccionArchivo<<std::endl;
+        return;
     }
     std::string lineas;
     while(getline(archivo,lineas)) {
@@ -19,25 +19,22 @@ Laberinto::Laberinto(std::string nombreArchivo) {
         alto++;
     }
     archivo.close();
-    if(!archivo) {
-        std::cout<<"No se pudo abrir el archivo :("<<std::endl;
-        exit(1);
-    }
 
+    archivo.open(direccionArchivo);
     laberinto = new char *[alto];
-    for(int i=0;i<alto;i++) {
-        laberinto[i]=new char[ancho];
-    }
 
+   for(int i=0;i<alto;i++) {
+       laberinto[i]=new char[ancho];
+   }
     while(getline(archivo,lineas)) {
         for (int i=0; i<alto;i++) {
             for(int j=0;j<ancho;ancho++) {
-                laberinto[alto][ancho]=lineas[ancho];
+                laberinto[i][j]=lineas[j];
             }
         }
     }
+    archivo.close();
     encontrarCamino();
-
 }
 
 Laberinto::~Laberinto() {
@@ -74,15 +71,14 @@ void Laberinto::imprimirLaberinto() {
 
 }
 
-void Laberinto::recorridoPorLaberinto(vector<pair<int, int>> camino) {
-}
-
 void Laberinto::encontrarCamino() {
     for(int i=0;i<alto;i++) {
         for (int j=0;j<ancho;j++) {
             if (laberinto[i][j]== 'S') {
                 inicioX=i;
                 inicioY=j;
+                coordXActual=i;
+                coordYActual=j;
             }else if(laberinto[i][j]=='E') {
                 finalX=i;
                 finalY=j;
@@ -225,6 +221,26 @@ bool Laberinto::testExitLeft() {
         return true;
     }
     return false;
+}
+
+void Laberinto::marcarCamino(int x, int y) {
+    laberinto[x][y]='/';
+}
+
+bool Laberinto::movimientoValido(int x, int y) {
+    if (x >= 0 && x < alto && y >= 0 && y < ancho) {
+        if (laberinto[x][y] == ' ' || laberinto[x][y] == 'E') {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+bool Laberinto::salidaEncontrada(int x, int y) {
+    return laberinto[x][y]='E';
 }
 
 

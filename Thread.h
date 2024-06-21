@@ -22,9 +22,9 @@ private:
 public:
     Thread(Laberinto &lab);
     ~Thread();
-    void resolverLab(int cordXActual, int cordYActual,vector<vector<bool>> &verificado, vector<int,int> camino);
     bool isResuelto();
-    void resolver();
+    void resolverLab(int x, int y);
+    void comienzaAResolver();
 
 
 };
