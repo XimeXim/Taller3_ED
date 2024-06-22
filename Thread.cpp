@@ -5,62 +5,115 @@
 #include "Thread.h"
 
 
-Thread::Thread(Laberinto &lab): laberinto(lab),resuelto(false) {
+Thread::Thread(Laberinto &lab): laberinto(lab), resuelto(false) {
 }
 
 Thread::~Thread() {
 }
 
 bool Thread::isResuelto() {
+    if (laberinto.getFin() == true) {
+        return resuelto = true;
+    }
     return resuelto;
 }
 
-void Thread::resolverLab(int x, int y) {
-    if (resuelto) return;
-    std::lock_guard<std::mutex> lock(mtx);
-    if (resuelto) return;
-    // Verifica si la posición actual es la salida y si es asi el laberinto esta resuelto
-    if (laberinto.salidaEncontrada(x, y)) {
-        resuelto = true;
-        laberinto.imprimirLaberinto();
-        std::cout << "Enhorabuena chaval! El laberinto ha sioh resuelto, joder!" << std::endl;
-        return;
+void Thread::resolverLab(int x, int y, int hilo) {
+    switch (hilo) {
+        case 1:
+            resolverDerechaPrimero(x, y);
+            break;
+        case 2: resolverAbajoPrimero(x, y);
+            break;
+        case 3: resolverIzquierdaPrimero(x, y);
+            break;
+        case 4: resolverArribaPrimero(x, y);
+            break;
+        default:
+            if (!laberinto.movimientoValido(x, y)) {
+                break;
+            }
     }
-    // Si la posición actual no es una por la que se mover no hace nada
-    if (!laberinto.movimientoValido(x, y)) {
-        return;
-    }
-    // Marca la posición en el camino segun su posicion actual
-    laberinto.marcarCamino(x, y);
+}
 
-    if (laberinto.verificarRight()) {
-        threads.emplace_back(&Thread::resolverLab, this, x, y + 1);
+
+void Thread::resolverIzquierdaPrimero(int x, int y) {
+    if (laberinto.verificarIzquierda()) {
+        resolverLab(x, y - 1, 3);
     }
-    if (laberinto.verificarDown()) {
-        threads.emplace_back(&Thread::resolverLab, this, x + 1, y);
+    if (laberinto.verificarAbajo()) {
+        resolverLab(x + 1, y, 2);
     }
-    if (laberinto.verificarLeft()) {
-        threads.emplace_back(&Thread::resolverLab, this, x, y - 1);
+    if (laberinto.verificarDerecha()) {
+        resolverLab(x, y + 1, 1);
     }
-    if (laberinto.verificarUp()) {
-        threads.emplace_back(&Thread::resolverLab, this, x - 1, y);
+    if (laberinto.verificarArriba()) {
+        resolverLab(x - 1, y, 4);
+    }
+}
+
+void Thread::resolverArribaPrimero(int x, int y) {
+    if (laberinto.verificarArriba()) {
+        resolverLab(x - 1, y, 4);
+    }
+    if (laberinto.verificarDerecha()) {
+        resolverLab(x, y + 1, 1);
+    }
+    if (laberinto.verificarIzquierda()) {
+        resolverLab(x, y - 1, 3);
+    }
+    if (laberinto.verificarAbajo()) {
+        resolverLab(x + 1, y, 2);
+    }
+}
+
+void Thread::resolverDerechaPrimero(int x, int y) {
+    if (laberinto.verificarDerecha()) {
+        resolverLab(x, y + 1, 1);
+    }
+    if (laberinto.verificarAbajo()) {
+        resolverLab(x + 1, y, 2);
+    }
+    if (laberinto.verificarIzquierda()) {
+        resolverLab(x, y - 1, 3);
+    }
+    if (laberinto.verificarArriba()) {
+        resolverLab(x - 1, y, 4);
+    }
+}
+
+void Thread::resolverAbajoPrimero(int x, int y) {
+    if (laberinto.verificarAbajo()) {
+        resolverLab(x + 1, y, 2);
+    }
+    if (laberinto.verificarDerecha()) {
+        resolverLab(x, y + 1, 1);
+    }
+    if (laberinto.verificarIzquierda()) {
+        resolverLab(x, y - 1, 3);
+    }
+    if (laberinto.verificarArriba()) {
+        resolverLab(x - 1, y, 4);
     }
 }
 
 void Thread::comienzaAResolver() {
     // thread para comenzar a resolver desde la posición inicial del laberinto
-    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual());
+    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual(), 1);
+    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual(), 2);
+    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual(), 3);
+    threads.emplace_back(&Thread::resolverLab, this, laberinto.getCoordXActual(), laberinto.getCoordYActual(), 4);
 
     // espera que los threads terminen su ejecución
-    for (int i = 0; i < static_cast<int>(threads.size()); ++i) {
-        auto& t = threads[i];
+    for (auto &t: threads) {
         if (t.joinable()) {
             t.join();
         }
     }
-    // No encontró una solución, imprime aviso
-    if (!resuelto) {
-        std::cout << "Pamplinas... este laberinto no tiene solucion amigo :(" << std::endl;
-        laberinto.imprimirLaberinto();
-    }
+    /*for (int i = 0; i < static_cast<int>(threads.size()); ++i) {
+        auto& t = threads[i];
+        if (t.joinable()) {
+            t.join();
+        }
+    }*/
 }
