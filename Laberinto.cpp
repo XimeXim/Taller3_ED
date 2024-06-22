@@ -9,32 +9,29 @@ Laberinto::Laberinto(std::string direccionArchivo) {
     ifstream archivo(direccionArchivo);
     if(!archivo) {
         std::cout<<"No se pudo abrir el archivo en esta direccion: "<< direccionArchivo<<std::endl;
-        return;
+        exit(1);
     }
-    std::string lineas;
-    while(getline(archivo,lineas)) {
-        if(ancho==0) {
-            ancho=lineas.size();
-        }
-        alto++;
+    std::string linea;
+    std::getline(archivo, linea);
+    ancho = linea.size();
+    alto = 1;
+
+    while (std::getline(archivo, linea)) {
+        ++alto;
     }
-    archivo.close();
 
-    archivo.open(direccionArchivo);
-    laberinto = new char *[alto];
+    archivo.clear();            // Limpiamos el estado del archivo
+    archivo.seekg(0, ios::beg); // Reiniciamos la posición de lectura esto segun chatgpt
 
-   for(int i=0;i<alto;i++) {
-       laberinto[i]=new char[ancho];
-   }
-    while(getline(archivo,lineas)) {
-        for (int i=0; i<alto;i++) {
-            for(int j=0;j<ancho;ancho++) {
-                laberinto[i][j]=lineas[j];
-            }
-        }
+    laberinto = new char*[alto];
+    for (int i = 0; i < alto; ++i) {
+        laberinto[i] = new char[ancho];
+        std::getline(archivo, linea);
+        std::copy(linea.begin(), linea.end(), laberinto[i]);
     }
     archivo.close();
     encontrarCamino();
+
 }
 
 Laberinto::~Laberinto() {
