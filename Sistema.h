@@ -12,8 +12,16 @@ class Sistema {
 public:
     Sistema();
     ~Sistema();
+
+    /**
+     * Metodo que genera el Menu principal del programa
+     */
     void Menu();
-    void Cargar();
+
+    /**
+     * Metodo que da Inicio al progama
+     */
+    void Iniciar();
 };
 
 

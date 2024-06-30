@@ -78,19 +78,6 @@ void Laberinto::imprimirLaberinto() {
     }
 }
 
-void Laberinto::imprimirLaberintoConRecorrido(int x, int y) {
-    for (int i = 0; i < alto; ++i) {
-        for (int j = 0; j < ancho; ++j) {
-            if (i == x && j == y) {
-                marcarCamino(i, j);
-            } else {
-                cout << laberinto[i][j];
-            }
-        }
-        cout << endl;
-    }
-}
-
 void Laberinto::encontrarCamino() {
     for (int i = 0; i < alto; i++) {
         for (int j = 0; j < ancho; j++) {
@@ -195,6 +182,58 @@ void Laberinto::marcarCamino(int x, int y) {
     laberinto[x][y] = 'X';
 }
 
+void Laberinto::generarLaberintoConSalida(int ancho, int alto) {
+    this->ancho = ancho;
+    this->alto = alto;
+    laberinto = new char*[alto];
+    for (int i = 0; i < alto; ++i) {
+        laberinto[i] = new char[ancho];
+        for (int j = 0; j < ancho; ++j) {
+            laberinto[i][j] = '#';
+        }
+    }
 
-//C:/Users/Ximena/Downloads/laberintoEjemplo.txt
-//C:/Users/Ximena/Downloads/laberintoEjemploMALO.txt
+    int startX, startY, endX, endY;
+    do {
+        startX = rand() % alto;
+        startY = rand() % ancho;
+    } while ((startX == 0 && startY == 0) ||
+             (startX == 0 && startY == ancho - 1) ||
+             (startX == alto - 1 && startY == 0) ||
+             (startX == alto - 1 && startY == ancho - 1));
+
+    do {
+        endX = rand() % alto;
+        endY = rand() % ancho;
+    } while ((endX == 0 && endY == 0) ||
+             (endX == 0 && endY == ancho - 1) ||
+             (endX == alto - 1 && endY == 0) ||
+             (endX == alto - 1 && endY == ancho - 1) ||
+             (endX == startX && endY == startY));
+
+    laberinto[startX][startY] = 'S'; // Entrada
+    laberinto[endX][endY] = 'E'; // Salida
+
+    // Crear un camino simple del inicio a la salida
+    int x = startX;
+    int y = startY;
+    while (x != endX || y != endY) {
+        if (x < endX) {
+            x++;
+        } else if (x > endX) {
+            x--;
+        } else if (y < endY) {
+            y++;
+        } else if (y > endY) {
+            y--;
+        }
+        if (laberinto[x][y] != 'E') {
+            laberinto[x][y] = ' ';
+        }
+    }
+
+    coordXActual = startX;
+    coordYActual = startY;
+    salidaExiste = true;
+    fin = false;
+}

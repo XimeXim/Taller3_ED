@@ -4,6 +4,6 @@
 
 int main() {
     Sistema sis;
-    sis.Cargar();
+    sis.Iniciar();
     return 0;
 }

@@ -8,6 +8,9 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
 class Laberinto {
@@ -39,10 +42,14 @@ public:
 
     bool get_salida_existe() const;
 
+    /**
+     * Metodo para imprimir el laberinto
+     */
     void imprimirLaberinto();
 
-    void imprimirLaberintoConRecorrido(int x, int y);
-
+    /**
+     * Metodo que recorre el laberinto y de encontrar una S o una E guarda la posicion de inicio y final comprobando a su vez si el laberinto tiene una salida.
+     */
     void encontrarCamino();
 
     /**
@@ -97,8 +104,26 @@ public:
      */
     int moverIzquierda();
 
+    /**
+     * Metodo que marca el camino recorrido por el hilo en el laberinto
+     * @param x posicion en x del laberinto a marcar
+     * @param y posicion en y del laberinto a marcar
+     */
     void marcarCamino(int x, int y);
 
+    /**
+     * Metodo de generar un nuevo laberinto si es que el ingresado por consola no tiene salida
+     * @param ancho tamano del ancho del laberinto a crear
+     * @param alto tamano del alto del laberinto a crear
+     */
+    void generarLaberintoConSalida(int ancho, int alto);
+
+    /**
+     * Metodo que comprueba si el movimiento es posible o no en la posision entregada
+     * @param x posicion en x del laberinto a probar
+     * @param y posicion en y del laberinto a probar
+     * @return True si es posible moverse
+     */
     bool movimientoValido(int x, int y);
 };
 

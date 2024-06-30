@@ -25,25 +25,46 @@ public:
 
     bool isResuelto();
 
+    /**
+     * Metodo que resuelve el laberinto segun el hilo y sus coordenadas
+     * @param x coordenada en x del laberinto
+     * @param y coordenada en y del laberinto
+     * @param hilo indica cual es el hilo que esta usando el metodo
+     */
     void resolverLab(int x, int y, int hilo);
 
+    /**
+     * Metodo con orden de verificacion con inicio desde la Izquierda
+     * @param x coordenada en x del laberinto
+     * @param y coordenada en y del laberinto
+     */
     void resolverIzquierdaPrimero(int x, int y);
 
+    /**
+     * Metodo con orden de verificacion con inicio desde Arriba
+     * @param x coordenada en x del laberinto
+     * @param y coordenada en y del laberinto
+     */
     void resolverArribaPrimero(int x, int y);
 
+    /**
+     * Metodo con orden de verificacion con inicio desde la Derecha
+     * @param x coordenada en x del laberinto
+     * @param y coordenada en y del laberinto
+     */
     void resolverDerechaPrimero(int x, int y);
 
+    /**
+     * Metodo con orden de verificacion con inicio desde Abajo
+     * @param x coordenada en x del laberinto
+     * @param y coordenada en y del laberinto
+     */
     void resolverAbajoPrimero(int x, int y);
 
+    /**
+     * Metodo que da inicio a la resolucion del laberinto, creando hilos para este objetivo
+     */
     void comienzaAResolver();
-
-    void hiloAvanzaDerecha(int x, int y);
-
-    void hiloAvanzaIzquierda(int x, int y);
-
-    void hiloAvanzaArriba(int x, int y);
-
-    void hiloAvanzaAbajo(int x, int y);
 };
 
 

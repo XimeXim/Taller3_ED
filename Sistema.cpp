@@ -23,7 +23,7 @@ void Sistema::Menu() {
     std::cout << "Seleccione una opcion: " << std::endl;
 }
 
-void Sistema::Cargar() {
+void Sistema::Iniciar() {
     int opcionSeleccionada;
     while (true) {
         Menu();
@@ -35,6 +35,7 @@ void Sistema::Cargar() {
             Laberinto lab(direccionArchivo);
             Thread thread(lab);
             thread.comienzaAResolver();
+            srand(time(nullptr));
             if (thread.isResuelto()) {
                 std::cout << std::endl;
                 std::cout << "Enhorabuena chaval! El laberinto si tiene solucion." << std::endl;
