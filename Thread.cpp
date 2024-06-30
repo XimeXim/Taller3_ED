@@ -110,10 +110,4 @@ void Thread::comienzaAResolver() {
             t.join();
         }
     }
-    /*for (int i = 0; i < static_cast<int>(threads.size()); ++i) {
-        auto& t = threads[i];
-        if (t.joinable()) {
-            t.join();
-        }
-    }*/
 }

@@ -122,6 +122,7 @@ bool Laberinto::verificarArriba() {
         marcarCamino(coordXActual, coordYActual);
         return true;
     } else if (laberinto[coordXActual - 1][coordYActual] == 'E') {
+        moverArriba();
         fin = true;
     }
     return false;
@@ -134,6 +135,7 @@ bool Laberinto::verificarAbajo() {
         marcarCamino(coordXActual, coordYActual);
         return true;
     } else if (laberinto[coordXActual + 1][coordYActual] == 'E') {
+        moverAbajo();
         fin = true;
     }
     return false;
@@ -146,6 +148,7 @@ bool Laberinto::verificarDerecha() {
         marcarCamino(coordXActual, coordYActual);
         return true;
     } else if (laberinto[coordXActual][coordYActual + 1] == 'E') {
+        moverDerecha();
         fin = true;
     }
     return false;
@@ -158,6 +161,7 @@ bool Laberinto::verificarIzquierda() {
         marcarCamino(coordXActual, coordYActual);
         return true;
     } else if (laberinto[coordXActual][coordYActual - 1] == 'E') {
+        moverIzquierda();
         fin = true;
     }
     return false;

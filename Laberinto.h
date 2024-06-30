@@ -19,14 +19,13 @@ private:
     int finalX, finalY;
     bool salidaExiste = false;
     bool fin = false;
+    int alto = 0;
+    int ancho = 0;
 
 public:
     Laberinto(std::string direccionArchivo);
 
     ~Laberinto();
-
-    int alto = 0;
-    int ancho = 0;
 
     bool getFin() const;
 
