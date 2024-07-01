@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+Sistema --> Laberinto
+Sistema --> Thread
+Thread --> Laberinto
+
+Class Sistema {
+}
+
+Class Thread {
+-&laberinto
+-mtx
+-resuelto = false
+-threads
+
+}
+
+Class Laberinto {
+-laberinto
+-coordXActual
+-coordYActual
+-inicioX
+-inicioY
+-finalX
+-finalY
+-salidaExiste = false
+-fin = false
+-alto = 0
+-ancho = 0
+}
+
+
+@enduml

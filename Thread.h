@@ -19,10 +19,21 @@ private:
     vector<thread> threads;
 
 public:
+    /**
+     * Constructor de Thread
+     * @param lab
+     */
     Thread(Laberinto &lab);
 
+    /**
+     * Destructor de Thread
+     */
     ~Thread();
 
+    /**
+     * Metodo que se vuelve true si el recorrido llega a la salida
+     * @return resuelto
+     */
     bool isResuelto();
 
     /**

@@ -7,10 +7,15 @@
 
 
 class Sistema {
-
-
 public:
+    /**
+     * Constructor de Sistema
+     */
     Sistema();
+
+    /**
+     * Destructor de Sistema
+     */
     ~Sistema();
 
     /**
@@ -23,7 +28,6 @@ public:
      */
     void Iniciar();
 };
-
 
 
 #endif //SISTEMA_H

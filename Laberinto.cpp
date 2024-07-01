@@ -185,7 +185,7 @@ void Laberinto::marcarCamino(int x, int y) {
 void Laberinto::generarLaberintoConSalida(int ancho, int alto) {
     this->ancho = ancho;
     this->alto = alto;
-    laberinto = new char*[alto];
+    laberinto = new char *[alto];
     for (int i = 0; i < alto; ++i) {
         laberinto[i] = new char[ancho];
         for (int j = 0; j < ancho; ++j) {

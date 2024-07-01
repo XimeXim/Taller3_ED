@@ -26,20 +26,39 @@ private:
     int ancho = 0;
 
 public:
+    /**
+     * Constructor del Laberinto
+     * @param direccionArchivo
+     */
     Laberinto(std::string direccionArchivo);
 
+    /**
+     * Destructor de Laberinto
+     */
     ~Laberinto();
 
+    /**
+     * Metodo get del bool fin
+     * @return fin
+     */
     bool getFin() const;
 
+    /**
+     * Metodo get del int coordXActual
+     * @return coordXActual
+     */
     int getCoordXActual() const;
 
-    void setCoordXActual(int coordXActual);
-
+    /**
+     * Metodo get del int coordYActual
+     * @return coordYActual
+     */
     int getCoordYActual() const;
 
-    void setCoordYActual(int coordYActual);
-
+    /**
+     * Metodo get del bool salidaExiste
+     * @return salidaExiste
+     */
     bool get_salida_existe() const;
 
     /**
